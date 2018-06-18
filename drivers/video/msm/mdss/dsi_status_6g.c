@@ -92,9 +92,6 @@ void mdss_check_dsi_ctrl_status(struct work_struct *work, uint32_t interval)
 			__func__);
 		schedule_delayed_work(&pstatus_data->check_status,
 				msecs_to_jiffies(interval));
-	if(!ret) {
-		printk("%s:%d te_signal test failed ret=%d\n",__func__,__LINE__,ret);
-	}
 		return;
 	}
 
