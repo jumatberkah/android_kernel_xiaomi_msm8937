@@ -22,7 +22,10 @@
 #include <linux/types.h>
 #include <linux/i2c.h>
 #include <linux/interrupt.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 #if defined(CONFIG_HMX_DB)
 #include <linux/regulator/consumer.h>
 #endif
@@ -32,11 +35,23 @@
 #define HIMAX_I2C_RETRY_TIMES 10
 
 #if defined(CONFIG_TOUCHSCREEN_HIMAX_DEBUG)
+<<<<<<< HEAD
 #define D(x...) pr_info("[HXTP][DEBUG] " x)
 #define I(x...) pr_info("[HXTP][INFO] " x)
 #define W(x...) pr_info("[HXTP][WARNING] " x)
 #define E(x...) pr_info("[HXTP][ERROR] " x)
 #define DIF(x...) do { if (debug_flag) pr_info("[HXTP][DEBUG] " x) } while (0)
+=======
+#define D(x...) pr_debug("[HXTP] " x)
+#define I(x...) pr_info("[HXTP] " x)
+#define W(x...) pr_warning("[HXTP][WARNING] " x)
+#define E(x...) pr_err("[HXTP][ERROR] " x)
+#define DIF(x...) \
+do {\
+	if (debug_flag) \
+	pr_debug("[HXTP][DEBUG] " x) \
+} while(0)
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 #else
 #define D(x...)
 #define I(x...)
@@ -50,11 +65,16 @@
 #define HX_VTG_MIN_UV			2700000
 #define HX_VTG_MAX_UV			3300000
 #define HX_ACTIVE_LOAD_UA		15000
+<<<<<<< HEAD
 #define HX_LPM_LOAD_UA			10
+=======
+#define HX_LPM_LOAD_UA 			10
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 /* Digital voltage @1.8 V */
 #define HX_VTG_DIG_MIN_UV		1800000
 #define HX_VTG_DIG_MAX_UV		1800000
 #define HX_ACTIVE_LOAD_DIG_UA	10000
+<<<<<<< HEAD
 #define HX_LPM_LOAD_DIG_UA		10
 
 #define HX_I2C_VTG_MIN_UV		1800000
@@ -68,6 +88,21 @@
 #define INPUT_DEV_NAME					"himax-touchscreen"
 
 struct himax_i2c_platform_data {
+=======
+#define HX_LPM_LOAD_DIG_UA 		10
+
+#define HX_I2C_VTG_MIN_UV		1800000
+#define HX_I2C_VTG_MAX_UV		1800000
+#define HX_I2C_LOAD_UA 			10000
+#define HX_I2C_LPM_LOAD_UA 		10
+#endif
+
+#define HIMAX_common_NAME 				"himax_tp"
+#define HIMAX_I2C_ADDR					0x48
+#define INPUT_DEV_NAME					"himax-touchscreen"
+
+struct himax_i2c_platform_data {	
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 	int abs_x_min;
 	int abs_x_max;
 	int abs_x_fuzz;
@@ -105,14 +140,22 @@ struct himax_i2c_platform_data {
 	int irq_gpio;
 	u32 irq_gpio_flags;
 
+<<<<<<< HEAD
 	struct regulator *vcc_ana; /*For Dragon Board*/
 	struct regulator *vcc_dig; /*For Dragon Board*/
 	struct regulator *vcc_i2c; /*For Dragon Board*/
 #endif
+=======
+	struct regulator *vcc_ana; //For Dragon Board
+	struct regulator *vcc_dig; //For Dragon Board
+	struct regulator *vcc_i2c; //For Dragon Board
+#endif	
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 };
 
 
 extern int irq_enable_count;
+<<<<<<< HEAD
 int i2c_himax_read(struct i2c_client *client,
 	uint8_t command, uint8_t *data, uint8_t length, uint8_t toRetry);
 
@@ -153,5 +196,22 @@ extern uint8_t getDiagCommand(void);
 int himax_parse_dt(struct himax_ts_data *ts,
 		struct himax_i2c_platform_data *pdata);
 int himax_ts_pinctrl_init(struct himax_ts_data *ts);
+=======
+extern int i2c_himax_read(struct i2c_client *client, uint8_t command, uint8_t *data, uint8_t length, uint8_t toRetry);
+extern int i2c_himax_write(struct i2c_client *client, uint8_t command, uint8_t *data, uint8_t length, uint8_t toRetry);
+extern int i2c_himax_write_command(struct i2c_client *client, uint8_t command, uint8_t toRetry);
+extern int i2c_himax_master_write(struct i2c_client *client, uint8_t *data, uint8_t length, uint8_t toRetry);
+extern int i2c_himax_read_command(struct i2c_client *client, uint8_t length, uint8_t *data, uint8_t *readlength, uint8_t toRetry);
+extern void himax_int_enable(int irqnum, int enable);
+extern int himax_ts_register_interrupt(struct i2c_client *client);
+extern void himax_rst_gpio_set(int pinnum, uint8_t value);
+extern uint8_t himax_int_gpio_read(int pinnum);
+
+extern int himax_gpio_power_config(struct i2c_client *client,struct himax_i2c_platform_data *pdata);
+
+#if defined(CONFIG_FB)
+extern int fb_notifier_callback(struct notifier_block *self, unsigned long event, void *data);
+#endif
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 
 #endif

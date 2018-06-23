@@ -13,9 +13,13 @@
 
 /dts-v1/;
 
+<<<<<<< HEAD
 #include <dt-bindings/gpio/gpio.h>
 #include "mdm9650-v1.1-mtp.dtsi"
 
+=======
+#include "mdm9650-v1.1-mtp.dtsi"
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 / {
 	model = "Qualcomm Technologies, Inc. MDM 9650 PCIE EP TTP";
 	compatible = "qcom,mdm9650-ttp", "qcom,mdm9650", "qcom,ttp";
@@ -67,6 +71,7 @@
 		interrupts = <0x0 0x0d 0x0>; /* PMD9655 VBUS DETECT */
 		interrupt-names = "vbus_det_irq";
 	};
+<<<<<<< HEAD
 
 	qcom,ipc_router_external_ap_xprt {
 		compatible = "qcom,ipc-router-mhi-dev-xprt";
@@ -76,6 +81,8 @@
 		qcom,xprt-linkid = <2>;
 		qcom,xprt-version = <1>;
 	};
+=======
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 };
 
 &usb3 {
@@ -167,8 +174,12 @@
 
 &pcie_ep {
 	status = "ok";
+<<<<<<< HEAD
 	mdm2apstatus-gpio = <&tlmm_pinmux 64 GPIO_ACTIVE_LOW>;
 	clkreq-gpio = <&tlmm_pinmux 85 0>;
+=======
+	mdm2apstatus-gpio = <&tlmm_pinmux 85 0>;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 };
 
 &pcie0 {
@@ -185,6 +196,7 @@
 
 &pcie0_mdm2apstatus_default {
 	mux {
+<<<<<<< HEAD
 		pins = "gpio64";
 		function = "gpio";
 	};
@@ -220,5 +232,15 @@
 		qcom,s2-timer = <2000>;
 		qcom,s2-type = <7>;
 		qcom,pull-up = <1>;
+=======
+		pins = "gpio85";
+		function = "gpio";
+	};
+
+	config {
+		pins = "gpio85";
+		drive-strength = <2>;
+		bias-pull-down;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 	};
 };

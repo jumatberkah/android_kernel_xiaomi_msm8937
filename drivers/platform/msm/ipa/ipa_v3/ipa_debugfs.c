@@ -550,6 +550,7 @@ static int ipa3_attrib_dump_eq(struct ipa_ipfltri_rule_eq *attrib)
 			attrib->num_ihl_offset_range_16);
 		 return -EPERM;
 	}
+
 	for (i = 0; i < attrib->num_ihl_offset_range_16; i++) {
 		pr_err(
 			   "(ihl_ofst_range16: ofst:%u lo:%u hi:%u) ",
@@ -808,7 +809,6 @@ static ssize_t ipa3_read_rt_hw(struct file *file, char __user *ubuf,
 			}
 		}
 	}
-
 bail:
 	mutex_unlock(&ipa3_ctx->lock);
 	kfree(entry);
@@ -912,7 +912,7 @@ static ssize_t ipa3_read_flt(struct file *file, char __user *ubuf, size_t count,
 				entry->rule.max_prio, entry->prio);
 			if (eq) {
 				res = ipa3_attrib_dump_eq(
-					&entry->rule.eq_attrib);
+						&entry->rule.eq_attrib);
 				if (res) {
 					IPAERR_RL("failed read attrib eq\n");
 					goto bail;

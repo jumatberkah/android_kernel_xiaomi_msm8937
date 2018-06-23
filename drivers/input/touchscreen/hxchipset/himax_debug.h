@@ -17,7 +17,11 @@
 #include "himax_common.h"
 
 #if defined(CONFIG_TOUCHSCREEN_HIMAX_DEBUG)
+<<<<<<< HEAD
 	#define HIMAX_PROC_TOUCH_FOLDER	"android_touch"
+=======
+	#define HIMAX_PROC_TOUCH_FOLDER 	"android_touch"
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 	#define HIMAX_PROC_DEBUG_LEVEL_FILE	"debug_level"
 	#define HIMAX_PROC_VENDOR_FILE		"vendor"
 	#define HIMAX_PROC_ATTN_FILE		"attn"
@@ -33,6 +37,7 @@
 
 	uint8_t HX_PROC_SEND_FLAG;
 
+<<<<<<< HEAD
 	extern int himax_touch_proc_init(void);
 	extern void himax_touch_proc_deinit(void);
 	bool getFlashDumpGoing(void);
@@ -56,20 +61,36 @@
 #ifdef HX_TP_PROC_REGISTER
 	#define HIMAX_PROC_REGISTER_FILE	"register"
 	struct proc_dir_entry *himax_proc_register_file = NULL;
+=======
+extern int himax_touch_proc_init(void);
+extern void himax_touch_proc_deinit(void);
+bool getFlashDumpGoing(void);
+
+#ifdef HX_TP_PROC_REGISTER
+	#define HIMAX_PROC_REGISTER_FILE	"register"
+	struct proc_dir_entry *himax_proc_register_file;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 	uint8_t register_command[4];
 #endif
 
 #ifdef HX_TP_PROC_DIAG
 	#define HIMAX_PROC_DIAG_FILE	"diag"
+<<<<<<< HEAD
 	struct proc_dir_entry *himax_proc_diag_file = NULL;
 	#define HIMAX_PROC_DIAG_ARR_FILE	"diag_arr"
 	struct proc_dir_entry *himax_proc_diag_arrange_file = NULL;
+=======
+	struct proc_dir_entry *himax_proc_diag_file;
+	#define HIMAX_PROC_DIAG_ARR_FILE	"diag_arr"
+	struct proc_dir_entry *himax_proc_diag_arrange_file;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 
 #ifdef HX_TP_PROC_2T2R
 	static bool Is_2T2R;
 	static uint8_t x_channel_2;
 	static uint8_t y_channel_2;
 	static uint8_t *diag_mutual_2;
+<<<<<<< HEAD
 
 	int16_t *getMutualBuffer_2(void);
 	uint8_t	getXChannel_2(void);
@@ -88,12 +109,33 @@
 
 	int diag_command = 0;
 	uint8_t diag_coor[128];/* = {0xFF};*/
+=======
+	
+	int16_t *getMutualBuffer_2(void);
+	uint8_t 	getXChannel_2(void);
+	uint8_t 	getYChannel_2(void);
+	
+	void 	setMutualBuffer_2(void);
+	void 	setXChannel_2(uint8_t x);
+	void 	setYChannel_2(uint8_t y);
+#endif
+	uint8_t x_channel;
+	uint8_t y_channel;
+	int16_t *diag_mutual;
+	int16_t *diag_mutual_new;
+	int16_t *diag_mutual_old;
+	uint8_t diag_max_cnt;
+
+	int diag_command;
+	uint8_t diag_coor[128];// = {0xFF};
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 	int16_t diag_self[100] = {0};
 
 	int16_t *getMutualBuffer(void);
 	int16_t *getMutualNewBuffer(void);
 	int16_t *getMutualOldBuffer(void);
 	int16_t *getSelfBuffer(void);
+<<<<<<< HEAD
 	uint8_t	getDiagCommand(void);
 	uint8_t	getXChannel(void);
 	uint8_t	getYChannel(void);
@@ -103,6 +145,17 @@
 	void	setMutualOldBuffer(void);
 	void	setXChannel(uint8_t x);
 	void	setYChannel(uint8_t y);
+=======
+	uint8_t 	getDiagCommand(void);
+	uint8_t 	getXChannel(void);
+	uint8_t 	getYChannel(void);
+	
+	void 	setMutualBuffer(void);
+	void 	setMutualNewBuffer(void);
+	void 	setMutualOldBuffer(void);
+	void 	setXChannel(uint8_t x);
+	void 	setYChannel(uint8_t y);
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 	uint8_t	coordinate_dump_enable = 0;
 	struct file	*coordinate_fn;
 #endif
@@ -122,6 +175,7 @@
 	struct proc_dir_entry *himax_proc_flash_dump_file = NULL;
 
 	static int Flash_Size = 131072;
+<<<<<<< HEAD
 	static uint8_t *flash_buffer;
 	static uint8_t flash_command;
 	static uint8_t flash_read_step;
@@ -132,14 +186,31 @@
 	static uint8_t flash_dump_sector;
 	static uint8_t flash_dump_page;
 	static bool    flash_dump_going;
+=======
+	static uint8_t *flash_buffer 				= NULL;
+	static uint8_t flash_command 				= 0;
+	static uint8_t flash_read_step 			= 0;
+	static uint8_t flash_progress 			= 0;
+	static uint8_t flash_dump_complete	= 0;
+	static uint8_t flash_dump_fail 			= 0;
+	static uint8_t sys_operation				= 0;
+	static uint8_t flash_dump_sector	 	= 0;
+	static uint8_t flash_dump_page 			= 0;
+	static bool    flash_dump_going			= false;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 
 	static uint8_t getFlashCommand(void);
 	static uint8_t getFlashDumpComplete(void);
 	static uint8_t getFlashDumpFail(void);
 	static uint8_t getFlashDumpProgress(void);
 	static uint8_t getFlashReadStep(void);
+<<<<<<< HEAD
 	/*static uint8_t getFlashDumpSector(void);*/
 	/*static uint8_t getFlashDumpPage(void);*/
+=======
+	//static uint8_t getFlashDumpSector(void);
+	//static uint8_t getFlashDumpPage(void);
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 
 	void setFlashBuffer(void);
 	uint8_t getSysOperation(void);
@@ -166,8 +237,13 @@
 
 #ifdef HX_TP_PROC_RESET
 #define HIMAX_PROC_RESET_FILE		"reset"
+<<<<<<< HEAD
 extern void himax_HW_reset(uint8_t loadconfig, uint8_t int_off);
 struct proc_dir_entry *himax_proc_reset_file;
+=======
+extern void himax_HW_reset(uint8_t loadconfig,uint8_t int_off);
+struct proc_dir_entry *himax_proc_reset_file 		= NULL;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 #endif
 
 #ifdef HX_HIGH_SENSE
@@ -181,16 +257,28 @@ struct proc_dir_entry *himax_proc_reset_file;
 #endif
 
 #ifdef HX_RST_PIN_FUNC
+<<<<<<< HEAD
 	void himax_HW_reset(uint8_t loadconfig, uint8_t int_off);
+=======
+	void himax_HW_reset(uint8_t loadconfig,uint8_t int_off);
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 #endif
 
 #ifdef HX_SMART_WAKEUP
 #define HIMAX_PROC_SMWP_FILE "SMWP"
+<<<<<<< HEAD
 struct proc_dir_entry *himax_proc_SMWP_file;
 #define HIMAX_PROC_GESTURE_FILE "GESTURE"
 struct proc_dir_entry *himax_proc_GESTURE_file;
 uint8_t HX_SMWP_EN;
 /*extern bool FAKE_POWER_KEY_SEND;*/
+=======
+struct proc_dir_entry *himax_proc_SMWP_file = NULL;
+#define HIMAX_PROC_GESTURE_FILE "GESTURE"
+struct proc_dir_entry *himax_proc_GESTURE_file = NULL;
+uint8_t HX_SMWP_EN = 0;
+//extern bool FAKE_POWER_KEY_SEND;
+>>>>>>> eb483d766c47... Merge branch 'lineage-15.1-ugglite-test' of https://github.com/muralivijay/android_kernel_xiaomi_msm8917 into lineage-15.1-ugglite-test
 #endif
 
 #endif
