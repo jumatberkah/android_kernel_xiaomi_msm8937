@@ -95,6 +95,39 @@ struct reset_attribute {
 module_param_call(download_mode, dload_set, param_get_int,
 			&download_mode, 0644);
 
+static bool warm_reset = true;
+module_param(warm_reset, bool, 0644);
+MODULE_PARM_DESC(warm_reset, "Set 1 to override default cold-reset");
+
+static struct die_args *tombstone;
+
+void set_restart_msg(const char *msg)
+{
+	if (!reboot_params || rst_msg_size == 0)
+		return;
+
+	pr_info("%s: set restart msg = `%s'\r\n", __func__, msg?:"<null>");
+	memset_io(reboot_params->msg, 0, rst_msg_size);
+	memcpy_toio(reboot_params->msg, msg,
+			min(strlen(msg), rst_msg_size - 1));
+}
+EXPORT_SYMBOL(set_restart_msg);
+
+int die_notify(struct notifier_block *self,
+				       unsigned long val, void *data)
+{
+	static struct die_args args;
+
+	memcpy(&args, data, sizeof(args));
+	tombstone = &args;
+	pr_debug("saving oops: %pK\n", (void *) tombstone);
+	return NOTIFY_DONE;
+}
+
+static struct notifier_block die_nb = {
+	.notifier_call = die_notify,
+};
+
 static int panic_prep_restart(struct notifier_block *this,
 			      unsigned long event, void *ptr)
 {
