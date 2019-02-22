@@ -1,5 +1,4 @@
-/* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
- * Copyright (C) 2018 XiaoMi, Inc.
+/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1292,9 +1291,12 @@ printk("hjl reading to enter L6200\n");
 		 */
 		if (slave_info->sensor_id_info.sensor_id ==
 			s_ctrl->sensordata->cam_slave_info->
-				sensor_id_info.sensor_id) {
-			pr_err("slot%d: sensor id%d already probed\n",
+				sensor_id_info.sensor_id &&
+			!(strcmp(slave_info->sensor_name,
+			s_ctrl->sensordata->cam_slave_info->sensor_name))) {
+			pr_err("slot%d: sensor name: %s sensor id%d already probed\n",
 				slave_info->camera_id,
+				slave_info->sensor_name,
 				s_ctrl->sensordata->cam_slave_info->
 					sensor_id_info.sensor_id);
 			msm_sensor_fill_sensor_info(s_ctrl,
