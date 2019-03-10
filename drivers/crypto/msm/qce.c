@@ -28,7 +28,6 @@
 #include <crypto/sha.h>
 #include <linux/qcedev.h>
 #include <linux/qcota.h>
-#include <mach/dma.h>
 
 #include "qce.h"
 #include "qcryptohw_30.h"
@@ -1187,8 +1186,7 @@ static void _chain_buffer_in_init(struct qce_device *pce_dev)
 static void _ce_in_final(struct qce_device *pce_dev, int ncmd, unsigned total)
 {
 	struct dmov_desc *pdesc;
-	dmov_sg *pcmd;
-
+	
 	pdesc = pce_dev->ce_in_src_desc + pce_dev->ce_in_src_desc_index;
 	pdesc->len |= ADM_DESC_LAST;
 
@@ -1201,17 +1199,12 @@ static void _ce_in_final(struct qce_device *pce_dev, int ncmd, unsigned total)
 	} else
 		pdesc->len = ADM_DESC_LAST | total;
 
-	pcmd = (dmov_sg *) pce_dev->cmd_list_ce_in;
-	if (ncmd == 1)
-		pcmd->cmd |= CMD_LC;
-	else {
-		dmov_s  *pscmd;
 
-		pcmd->cmd &= ~CMD_LC;
-		pcmd++;
-		pscmd = (dmov_s *)pcmd;
-		pscmd->cmd |= CMD_LC;
-	}
+		
+		
+		
+		
+	
 
 #ifdef QCE_DEBUG
 	dev_info(pce_dev->pdev, "_ce_in_final %d\n",
@@ -1351,7 +1344,7 @@ static void _chain_buffer_out_init(struct qce_device *pce_dev)
 static void _ce_out_final(struct qce_device *pce_dev, int ncmd, unsigned total)
 {
 	struct dmov_desc *pdesc;
-	dmov_sg *pcmd;
+	
 
 	pdesc = pce_dev->ce_out_dst_desc + pce_dev->ce_out_dst_desc_index;
 	pdesc->len |= ADM_DESC_LAST;
@@ -1366,16 +1359,16 @@ static void _ce_out_final(struct qce_device *pce_dev, int ncmd, unsigned total)
 	} else
 		pdesc->len = ADM_DESC_LAST | total;
 
-	pcmd = (dmov_sg *) pce_dev->cmd_list_ce_out;
+	
 	if (ncmd == 1)
 		pcmd->cmd |= CMD_LC;
 	else {
-		dmov_s  *pscmd;
+		
 
-		pcmd->cmd &= ~CMD_LC;
-		pcmd++;
-		pscmd = (dmov_s *)pcmd;
-		pscmd->cmd |= CMD_LC;
+		
+		
+		
+		
 	}
 #ifdef QCE_DEBUG
 	dev_info(pce_dev->pdev, "_ce_out_final %d\n",
@@ -1389,7 +1382,7 @@ static void _aead_ce_in_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 							result);
@@ -1412,7 +1405,7 @@ static void _aead_ce_out_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 							result);
@@ -1437,7 +1430,7 @@ static void _sha_ce_in_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 						result);
@@ -1453,7 +1446,7 @@ static void _ablk_cipher_ce_in_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 						result);
@@ -1476,7 +1469,7 @@ static void _ablk_cipher_ce_out_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 						result);
@@ -1498,8 +1491,8 @@ static void _ablk_cipher_ce_out_call_back(struct msm_dmov_cmd *cmd_ptr,
 
 static int _setup_cmd_template(struct qce_device *pce_dev)
 {
-	dmov_sg *pcmd;
-	dmov_s  *pscmd;
+	
+	
 	struct dmov_desc *pdesc;
 	unsigned char *vaddr;
 	int i = 0;
@@ -1607,7 +1600,7 @@ static int _setup_cmd_template(struct qce_device *pce_dev)
 	pcmd->dst_dscr = (unsigned) pce_dev->phy_ce_in_dst_desc;
 	pcmd->_reserved = LI_SG_CMD | SRC_INDEX_SG_CMD(0) |
 						DST_INDEX_SG_CMD(0);
-	pcmd++;
+	
 	/*
 	 * The second command is for the digested data of
 	 * hashing operation only. For others, this command is not used.
@@ -1632,7 +1625,7 @@ static int _setup_cmd_template(struct qce_device *pce_dev)
 	 * It is for encry/decryp output.
 	 * If hashing only, ce_out is not used.
 	 */
-	pcmd = (dmov_sg *) pce_dev->cmd_list_ce_out;
+	
 	/* swap byte, half word, source crci, scatter gather */
 	pcmd->cmd =   CMD_SRC_SWAP_BYTES | CMD_SRC_SWAP_SHORTS |
 			CMD_SRC_CRCI(pce_dev->crci_out) | CMD_MODE_SG;
@@ -1652,7 +1645,7 @@ static int _setup_cmd_template(struct qce_device *pce_dev)
 	pcmd->_reserved = LI_SG_CMD | SRC_INDEX_SG_CMD(0) |
 						DST_INDEX_SG_CMD(0);
 
-	pcmd++;
+	
 	/*
 	 * The second command is for digested data of esp operation.
 	 * For ciphering, this command is not used.
@@ -1761,7 +1754,7 @@ static void _f9_ce_in_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 						result);
@@ -1777,7 +1770,7 @@ static void _f8_ce_in_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 						 result);
@@ -1800,7 +1793,7 @@ static void _f8_ce_out_call_back(struct msm_dmov_cmd *cmd_ptr,
 {
 	struct qce_device *pce_dev;
 
-	pce_dev = (struct qce_device *) cmd_ptr->user;
+	
 	if (result != ADM_STATUS_OK) {
 		dev_err(pce_dev->pdev, "Qualcomm ADM status error %x\n",
 						result);
