@@ -1353,11 +1353,8 @@ in_rq_range(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 		if (entity_id == USB_IN_CLK_ID || entity_id == USB_OUT_CLK_ID) {
 			int i;
 
-			r.wNumSubRanges = CLK_FREQ_ARR_SIZE;
-			for (i = 0; i < CLK_FREQ_ARR_SIZE; i++) {
-				r.dRangeAttrs[i][0] = clk_frequencies[i];
-				r.dRangeAttrs[i][1] = r.dRangeAttrs[i][0];
-				r.dRangeAttrs[i][2] = 0;
+			r.wNumSubRanges =  CLK_FREQ_CTRL;
+			for (i = 0; i <  CLK_FREQ_CTRL; i++) {
 			}
 			value = min_t(unsigned, w_length, sizeof(r));
 			memcpy(req->buf, &r, value);
