@@ -1,4 +1,4 @@
-dtb-$(CONFIG_ARCH_MSM8996) += msm8996-v2-pmi8994-cdp.dtb \
+# dtb-$(CONFIG_ARCH_MSM8996) += msm8996-v2-pmi8994-cdp.dtb \
 	msm8996-v2-pmi8994-mtp.dtb \
 	msm8996-v2-pmi8994-pmk8001-cdp.dtb \
 	msm8996-v2-pmi8994-pmk8001-mtp.dtb \
@@ -132,7 +132,7 @@ dtb-$(CONFIG_ARCH_MSMCOBALT) += msmcobalt-sim.dtb \
 	msmcobalt-v2-mtp.dtb \
 	msmcobalt-v2-cdp.dtb
 
-dtb-$(CONFIG_ARCH_MDM9640) += mdm9640-sim.dtb \
+# dtb-$(CONFIG_ARCH_MDM9640) += mdm9640-sim.dtb \
 	mdm9640-rumi.dtb \
 	mdm9640-emmc-cdp.dtb \
 	mdm9640-nand-cdp.dtb \
@@ -143,7 +143,7 @@ dtb-$(CONFIG_ARCH_MDM9640) += mdm9640-sim.dtb \
 	mdm9640-v2-pmk8001-mtp.dtb \
 
 
-dtb-$(CONFIG_ARCH_MDMCALIFORNIUM) += mdmcalifornium-sim.dtb \
+# dtb-$(CONFIG_ARCH_MDMCALIFORNIUM) += mdmcalifornium-sim.dtb \
 	mdmcalifornium-rumi.dtb \
 	mdmcalifornium-emmc-cdp.dtb \
 	mdmcalifornium-nand-cdp.dtb \
@@ -225,7 +225,7 @@ dtb-$(CONFIG_ARCH_MSM8953) += msm8953-sim.dtb \
 	msm8953-iot-mtp.dtb \
 	apq8053-iot-mtp.dtb
 
-dtb-$(CONFIG_ARCH_MDM9607) += mdm9607-rumi.dtb \
+# dtb-$(CONFIG_ARCH_MDM9607) += mdm9607-rumi.dtb \
 	mdm9607-cdp.dtb \
 	mdm9607-mtp.dtb \
 	mdm9607-rcm.dtb \
@@ -236,7 +236,7 @@ dtb-$(CONFIG_ARCH_MSM8916) += msm8952-qrd-skum.dtb \
        msm8952-ext-codec-cdp.dtb \
        msm8952-mtp.dtb
 
-dtb-$(CONFIG_ARCH_MSM8909) += msm8909-pm8916-mtp.dtb \
+# dtb-$(CONFIG_ARCH_MSM8909) += msm8909-pm8916-mtp.dtb \
 	msm8909w-wtp.dtb \
 	apq8009w-wtp.dtb \
 	apq8009w-cdp.dtb \
