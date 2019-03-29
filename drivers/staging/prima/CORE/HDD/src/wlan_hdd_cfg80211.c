@@ -15355,8 +15355,8 @@ hdd_spoof_scan(struct wiphy *wiphy, hdd_adapter_t *adapter,
 		if (!hdd_is_nl_scan_random(nl_scan) || is_p2p_scan)
 			return 0;
 
-		hdd_generate_scan_random_mac(nl_scan->mac_addr,
-					     nl_scan->mac_addr_mask,
+		hdd_generate_scan_random_mac(nl_scan,
+					     nl_scan,
 					     random_mac);
 
 		hddLog(VOS_TRACE_LEVEL_INFO,
@@ -15364,8 +15364,8 @@ hdd_spoof_scan(struct wiphy *wiphy, hdd_adapter_t *adapter,
 		hddLog(VOS_TRACE_LEVEL_INFO, "mac-addr: "MAC_ADDRESS_STR
 		       " mac-mask: "MAC_ADDRESS_STR
 		       " random-mac: "MAC_ADDRESS_STR,
-		       MAC_ADDR_ARRAY(nl_scan->mac_addr),
-		       MAC_ADDR_ARRAY(nl_scan->mac_addr_mask),
+		       MAC_ADDR_ARRAY(nl_scan),
+		       MAC_ADDR_ARRAY(nl_scan),
 		       MAC_ADDR_ARRAY(random_mac));
 
 		hal_status = sme_SpoofMacAddrReq(hdd_ctx->hHal,
