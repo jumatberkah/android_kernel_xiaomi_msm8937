@@ -500,8 +500,6 @@
 		clocks = <&clock_gcc clk_gcc_blsp1_uart1_apps_clk>,
 			<&clock_gcc clk_gcc_blsp1_ahb_clk>;
 		pinctrl-names = "sleep", "default";
-		pinctrl-0 = <&blsp1_uart1_sleep>;
-		pinctrl-1 = <&blsp1_uart1_active>;
 
 		qcom,msm-bus,name = "blsp1_uart1";
 		qcom,msm-bus,num-cases = <2>;
